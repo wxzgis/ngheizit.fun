@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
+#el-collapse{
+    margin: 5%;
+}
+.link-ui{
+    list-style-type: none;
+    padding-left: 5%;
+}
+.link-li{
+    margin: 5px;
+    padding: 5px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
