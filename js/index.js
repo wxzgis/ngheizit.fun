@@ -2,6 +2,26 @@ this.onload = () => {
     this.main();
 };
 
+// OpenLayer 初始化地图
+function ol_Init(){
+    var map = new ol.Map({
+        target: 'map',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM()
+            })
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([113, 23]),
+            zoom: 6
+        }),
+        controls: ol.control.defaults({
+            attribution: false, // 底部信息控件 不可见
+            zoom: false // 缩放控件 不可见
+        })
+    });
+}
+
 
 function main(){
     const linkList = [
@@ -146,9 +166,11 @@ function main(){
                         type: type
                     });
                 }
-            }
+            },
+            ol_Init
         },
         mounted(){
+            ol_Init();
             // this.$message('Hello World.');
         }
     });
