@@ -141,6 +141,9 @@ function main(){
                 },{
                     name: 'Iconfont 阿里巴巴矢量图标库',
                     url: 'https://www.iconfont.cn/'
+                },{
+                    name: 'ZAMZAR 图片格式转换',
+                    url: 'https://www.zamzar.com/'
                 }
             ]
         }
