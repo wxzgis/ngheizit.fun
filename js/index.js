@@ -94,6 +94,9 @@ function main(){
                 },{
                     name: 'Google Earth Engine Code Editor',
                     url: 'https://code.earthengine.google.com/'
+                },{
+                    name: 'Google Earth Engine Developers',
+                    url: 'https://developers.google.com/earth-engine/'
                 }
             ]
         },{
