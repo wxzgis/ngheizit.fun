@@ -91,6 +91,9 @@ function main(){
                 },{
                     name: 'ArcGIS 知乎',
                     url: 'http://zhihu.esrichina.com.cn/'
+                },{
+                    name: 'Google Earth Engine Code Editor',
+                    url: 'https://code.earthengine.google.com/'
                 }
             ]
         },{
