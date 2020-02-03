@@ -7,6 +7,9 @@
     <title>有哲之士🌏</title>
     <script src="./js/index.js"></script>
     <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/object/linkList.js"></script>
+    <script src="./js/object/blogList.js"></script>
+
 
     <!-- 网页图标 -->
     <link rel="shortcut icon" href="./img/header.ico" type="image/x-icon">
@@ -87,6 +90,20 @@
             </el-collapse>
         </el-drawer>
         <div id="map"></div>
+        <el-row style="padding: 50px;" style="width: 100%;">
+            <el-col :span="5" v-for="(blog, index) in blogList" :key="index" style="margin: 5px;">
+                <el-card shadow="hover">
+                    <img :src="blog.img" class="image">
+                    <div>
+                        <span>{{blog.title}}</span>
+                        <div class="bottom clearfix">
+                            <time class="time">{{blog.time}}</time>
+                            <el-button type="text" class="button" @click="this.location = blog.url">More</el-button>
+                        </div>
+                    </div>
+                </el-card>
+            </el-col>
+        </el-row>
     </div>
 </body>
 </html>
