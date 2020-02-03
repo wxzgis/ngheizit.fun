@@ -180,7 +180,7 @@ function main(){
         },
         mounted(){
             ol_Init();
-            // this.$message('Hello World.');
+            this.$message('Good Luck.');
         }
     });
 }
