@@ -35,3 +35,9 @@ pre{
 code span{
     color: #6A9955;
 }
+.wxz-img{
+    width: 600px;
+    height: 400px;
+    position: relative;
+    border: 1px solid red;
+}

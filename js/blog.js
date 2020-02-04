@@ -67,6 +67,9 @@ this.onload = () => {
         },
         mounted(){
             this.$message('Good Luck.');
+            imgList.forEach(img => {
+                initImg(img.id, img.url, img.w, img.h);
+            });
         }
     });
 }
