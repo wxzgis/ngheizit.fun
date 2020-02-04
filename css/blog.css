@@ -7,9 +7,31 @@
     width: 100%;
     padding: 15px;
     position: fixed;
+    z-index: 99;
 }
 body{
     background-image: url(../img/bg-earth.jpg);
     background-repeat: no-repeat;
     background-position: bottom;
+}
+#up{
+    height: 100%;
+    width: 100%;
+    background-color: #f2f5f6;
+    box-shadow: 0 0 6px rgba(0,0,0, .12);
+    text-align: center;
+    line-height: 40px;
+    color: #1989fa;
+}
+.blog-post-subtitle{
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+pre{
+    background-color: #1E1E1E;
+    padding: 5px;
+    color: #D4D4D4 !important;
+}
+code span{
+    color: #6A9955;
 }
