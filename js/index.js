@@ -27,13 +27,14 @@ function ol_Init(){
 
 
 function main(){
-    new Vue({
+    const vm = new Vue({
         el: '#app',
         data(){
             return{
                 link: false,
                 linkList,
-                blogList
+                blogList,
+                user: 'wxz'
             }
         },
         methods:{
@@ -57,4 +58,9 @@ function main(){
             this.$message('Good Luck.');
         }
     });
+    $('#test').click(function(){
+        $.get("http://39.107.24.26:3000/checkUserFromId?id=2",function(data,status){
+            console.log(vm.user=data[0].Username);
+        });
+    })
 }
