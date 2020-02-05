@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>有哲之士🌏</title>
     <script src="./js/mobile.js"></script>
+    <link rel="stylesheet" href="./css/moblie.css">
+    <script src="./js/object/linkList.js"></script>
+
+    <!-- 移动端布局适配 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
     <!-- 网页图标 -->
     <link rel="shortcut icon" href="./img/header.ico" type="image/x-icon">
@@ -25,7 +30,53 @@
 </head>
 <body>
     <div id="app">
-        <mt-button @click.native="handleClick">按钮</mt-button>
+        <mt-header id="wxz-header" title="🌏 有哲之士 🌏"></mt-header>
+        <mt-tabbar v-model="page">
+            <mt-tab-item id="home">
+                <img slot="icon" src="./img/earth.png">
+                家
+            </mt-tab-item>
+            <mt-tab-item id="blog">
+                <img slot="icon" src="./img/earth.png">
+                文章
+            </mt-tab-item>
+            <mt-tab-item id="link">
+                <img slot="icon" src="./img/earth.png">
+                链接集
+            </mt-tab-item>
+            <mt-tab-item id="else">
+                <img slot="icon" src="./img/earth.png">
+                其他
+            </mt-tab-item>
+        </mt-tabbar>
+
+        
+        <mt-tab-container v-model="page">
+            <mt-tab-container-item id="home">
+                
+            </mt-tab-container-item>
+            <mt-tab-container-item id="blog">
+                
+            </mt-tab-container-item>
+            <mt-tab-container-item id="link">
+                <mt-navbar v-model="linkType">
+                    <mt-tab-item v-for="(item, index) in linkList" :key="index" :id="index.toString()">{{item.title}}</mt-tab-item>
+                </mt-navbar>
+                  
+                  <!-- tab-container -->
+                <mt-tab-container v-model="linkType">
+                    <mt-tab-container-item v-for="(item, index) in linkList" :key="index" :id="index.toString()">
+                        <mt-cell v-for="(link, index) in item.links" :key="index" :title="link.name" :to="link.url" is-link/>
+                    </mt-tab-container-item>
+                </mt-tab-container>
+            </mt-tab-container-item>
+            <mt-tab-container-item id="else">
+                
+            </mt-tab-container-item>
+        </mt-tab-container>
+
+        </div>
+
     </div>
 </body>
 </html>
