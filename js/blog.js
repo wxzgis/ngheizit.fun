@@ -42,6 +42,15 @@ this.onload = () => {
         props: ['content'],
         template: '<span># {{content}}</span> '
     });
+    Vue.component('wxz-keyword', {
+        data: function(){
+            return {};
+        },
+        props: {
+            content: String
+        },
+        template: '<div><el-tag class="wxz-keyword" v-for="(word, index) in content.split(\' \')" :key="index">{{word}}</el-tag></div>'
+    });
 
     const vm = new Vue({
         el: '#app',
