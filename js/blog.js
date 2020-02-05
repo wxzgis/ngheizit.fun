@@ -5,7 +5,7 @@ this.onload = () => {
             return {};
         },
         props: ['content', 'time'],
-        template: '<div><div class="jumbotron p-3 p-md-5 text-white rounded bg-dark"><div class="col-md-6 px-0"><h1 class="display-4 font-italic">{{content}}</h1></div></div><el-divider content-position="left">{{time}}</el-divider></div>'
+        template: '<div><el-divider><i class="el-icon-sunny"></i></el-divider><div class="jumbotron p-3 p-md-5 text-white rounded bg-dark"><div class="col-md-6 px-0"><h1 class="display-4 font-italic">{{content}}</h1></div></div><el-divider content-position="left">{{time}}</el-divider></div>'
     });
     Vue.component('wxz-subtitle', {
         data: function (){
@@ -49,7 +49,7 @@ this.onload = () => {
         props: {
             content: String
         },
-        template: '<div><el-tag class="wxz-keyword" v-for="(word, index) in content.split(\' \')" :key="index">{{word}}</el-tag></div>'
+        template: '<div><el-tag class="wxz-keyword" v-for="(word, index) in content.split(\' \')" :key="index">{{word}}</el-tag><el-divider>END</el-divider></div>'
     });
 
     const vm = new Vue({
