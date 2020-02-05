@@ -25,6 +25,29 @@ this.onload = () => {
         },
         mounted(){
             this.$toast({message: 'Good Luck.', duration: 1000});
+            console.log(this);
+            initArcGISforJsApi();
         }
     });
+}
+
+function initArcGISforJsApi(){
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+    ], function(
+        Map,
+        MapView
+    ){
+        var map = new Map({
+            basemap: "osm"
+        });
+    
+        var view = new MapView({
+            container: "axMapView",
+            map: map,
+            center: [113, 23],
+            zoom: 6
+        });
+    })
 }
