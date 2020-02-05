@@ -1,4 +1,7 @@
 this.onload = () => {
+    if (/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)) {
+        this.location = './mobile.html';
+    }
     this.main();
 };
 
