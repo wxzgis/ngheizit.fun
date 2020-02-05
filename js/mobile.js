@@ -49,5 +49,9 @@ function initArcGISforJsApi(){
             center: [113, 23],
             zoom: 6
         });
+
+        view.when(function(){
+            document.getElementsByClassName("esri-component esri-attribution esri-widget")[0].remove();
+        });
     })
 }

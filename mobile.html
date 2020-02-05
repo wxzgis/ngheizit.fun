@@ -28,6 +28,10 @@
     <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
 
+    <!-- Element -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
     <!-- ArcGIS API for Javascript -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
     <script src="https://js.arcgis.com/4.13/"></script>
@@ -36,30 +40,11 @@
 <body>
     <div id="app">
         <mt-header id="wxz-header" title="🌏 有哲之士 🌏"></mt-header>
-        <mt-tabbar v-model="page">
-            <mt-tab-item id="home">
-                <img slot="icon" src="./img/earth.png">
-                家
-            </mt-tab-item>
-            <mt-tab-item id="blog">
-                <img slot="icon" src="./img/earth.png">
-                文章
-            </mt-tab-item>
-            <mt-tab-item id="link">
-                <img slot="icon" src="./img/earth.png">
-                链接集
-            </mt-tab-item>
-            <mt-tab-item id="else">
-                <img slot="icon" src="./img/earth.png">
-                其他
-            </mt-tab-item>
-        </mt-tabbar>
-
         
-        <mt-tab-container v-model="page">
+        <mt-tab-container id="page" v-model="page">
             <mt-tab-container-item id="home">
                 <div id="axMapView"></div>
-                
+                <el-divider><i class="el-icon-sunny"></i></el-divider>
             </mt-tab-container-item>
             <mt-tab-container-item id="blog">
                 <mt-cell v-for="(blog, index) in blogList" :key="index" :title="blog.title" :label="blog.time" :to="blog.url" is-link>
@@ -81,8 +66,25 @@
             </mt-tab-container-item>
         </mt-tab-container>
 
-        </div>
-
+        <mt-tabbar v-model="page"fixed>
+            <mt-tab-item id="home">
+                <img slot="icon" src="./img/earth.png">
+                家
+            </mt-tab-item>
+            <mt-tab-item id="blog">
+                <img slot="icon" src="./img/earth.png">
+                文章
+            </mt-tab-item>
+            <mt-tab-item id="link">
+                <img slot="icon" src="./img/earth.png">
+                链接集
+            </mt-tab-item>
+            <mt-tab-item id="else">
+                <img slot="icon" src="./img/earth.png">
+                其他
+            </mt-tab-item>
+        </mt-tabbar>
     </div>
+
 </body>
 </html>
