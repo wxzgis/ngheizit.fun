@@ -32,9 +32,9 @@ function main(){
         data(){
             return{
                 link: false,
+                wxz: 'wxz',
                 linkList,
-                blogList,
-                user: 'wxz'
+                blogList
             }
         },
         methods:{
@@ -60,7 +60,7 @@ function main(){
     });
     $('#test').click(function(){
         $.get("http://39.107.24.26:3000/checkUserFromId?id=2",function(data,status){
-            console.log(vm.user=data[0].Username);
+            console.log(vm.wxz=data[0].Username);
         });
     })
 }
