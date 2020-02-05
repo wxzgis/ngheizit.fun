@@ -6,6 +6,7 @@
     <script src="./js/mobile.js"></script>
     <link rel="stylesheet" href="./css/moblie.css">
     <script src="./js/object/linkList.js"></script>
+    <script src="./js/object/blogList.js"></script>
 
     <!-- 移动端布局适配 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -56,14 +57,14 @@
                 
             </mt-tab-container-item>
             <mt-tab-container-item id="blog">
-                
+                <mt-cell v-for="(blog, index) in blogList" :key="index" :title="blog.title" :label="blog.time" :to="blog.url" is-link>
+                    <img slot="icon" :src="blog.img" width="24" height="24">
+                </mt-cell>
             </mt-tab-container-item>
             <mt-tab-container-item id="link">
                 <mt-navbar v-model="linkType">
                     <mt-tab-item v-for="(item, index) in linkList" :key="index" :id="index.toString()">{{item.title}}</mt-tab-item>
                 </mt-navbar>
-                  
-                  <!-- tab-container -->
                 <mt-tab-container v-model="linkType">
                     <mt-tab-container-item v-for="(item, index) in linkList" :key="index" :id="index.toString()">
                         <mt-cell v-for="(link, index) in item.links" :key="index" :title="link.name" :to="link.url" is-link/>

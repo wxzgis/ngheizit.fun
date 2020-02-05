@@ -5,7 +5,8 @@ this.onload = () => {
             return {
                 page: 'home',
                 linkType: "0",
-                linkList
+                linkList,
+                blogList
             }
         },
         watch: {
