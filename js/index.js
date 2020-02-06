@@ -58,9 +58,4 @@ function main(){
             this.$message('Good Luck.');
         }
     });
-    $('#test').click(function(){
-        $.get("http://39.107.24.26:3000/checkUserFromId?id=2",function(data,status){
-            console.log(vm.wxz=data[0].Username);
-        });
-    })
 }
