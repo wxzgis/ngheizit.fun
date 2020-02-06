@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>在CentOS下安装Node及Vue和Express相关框架</title>
+    <script src="../js/blog.js"></script>
+    <link rel="stylesheet" href="../css/blog.css">
+
+    <!-- 网页图标 -->
+    <link rel="shortcut icon" href="../img/header.ico" type="image/x-icon">
+
+    <!-- Vue.js -->
+    <script src="../js/vue.js"></script>
+
+    <!-- Element -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+    <!-- jQuery -->
+    <script src="../js/jquery-3.4.1.js"></script>
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- 图片交互脚本（手动缩放、移动） -->
+    <script src="../js/ailabel.pkg.min.js"></script>
+    <script>
+        function initImg(id, url, width, height){
+            const gMap = new AILabel.Map(id, {zoom: 1366, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10, autoPan: true, drawZoom: true});
+            const gImageLayer = new AILabel.Layer.Image('img', url, {w: width, h: height}, {zIndex: 1});
+            gMap.addLayer(gImageLayer);
+        }
+    </script>
+
+</head>
+<body>
+    <div id="app">
+        <el-page-header @back="this.location='../index.html';" content="在CentOS下安装Node及Vue和Express相关脚骨架"></el-page-header>
+        <img src="../img/header-neutral.jpg" width="100%" style="margin-top: 50px;">
+        <el-backtop>
+            <div id="up">UP</div>
+        </el-backtop>
+        <div class="container">
+            <wxz-title content="在CentOS下安装Node及Vue和Express相关脚骨架" time="2020年2月6日 12点35分"></wxz-title>
+            
+            <wxz-subtitle content="- 安装 Node.js"></wxz-subtitle>
+            <p>
+                在<a href="https://nodejs.org/en/download/">Node.js官网</a>寻找Node.js的Linux最新版本下载地址，
+                并将其复制记录下来。
+                然后在CentOS终端写入如下命令进行下载 → 解压 → 安装 → 配置测试。
+            </p>
+<pre><code><wxz-cshape content="下载Node.js安装包"></wxz-cshape>
+<wxz-cshape content="wget [Node.js安装包地址]"></wxz-cshape>
+wget https://nodejs.org/dist/v12.15.0/node-v12.15.0-linux-x64.tar.xz <wxz-cshape content="当前最新版本 v12.15.0"></wxz-cshape>
+</code></pre>
+<pre><code><wxz-cshape content="解压并安装Node.js"></wxz-cshape>
+xz -d node-v12.15.0-linux-x64.tar.xz
+tar -xf node-v12.15.0-linux-x64.tar
+mv node-v12.15.0-linux-x64 node <wxz-cshape content="mv [解压后安装包] [安装根目录]"></wxz-cshape>    
+</code></pre>
+<pre><code><wxz-cshape content="配置Node.js环境变量（全局使用node）"></wxz-cshape>
+vim /etc/profile <wxz-cshape content="环境变量配置文件"></wxz-cshape>
+<wxz-cshape content="点击【i】开启文本编辑后，添加如下代码"></wxz-cshape>
+#set nodejs env 
+export NODE_HOME=/usr/local/wxz/node <wxz-cshape content="node安装根目录"></wxz-cshape>
+export PATH=$NODE_HOME/bin:$PATH
+export NODE_PATH=$NODE_HOME/lib/node_modules:$PATH
+<wxz-cshape content="点击【Esc】并使用命令【:wq】退出编辑状态并保存，然后重启配置使新的环境变量生效"></wxz-cshape>
+source /etc/profile
+</code></pre>
+<pre><code><wxz-cshape content="检测Node.js版本"></wxz-cshape>
+node -v
+npm -v    
+</code></pre>
+            <div id="downloadNodeJs" class="wxz-img"></div>
+
+            <wxz-subtitle content="- 安装 Express 框架"></wxz-subtitle>
+            <p>使用<b>npm</b>命令在<i>全局</i>下安装Express框架和脚骨架</p>
+            <pre><code>npm install express -g</code></pre>
+            <pre><code>npm install express-generator -g</code></pre>
+            <p>对安装的Express框架进行版本检测</p>
+            <pre><code>express --version</code></pre>
+            <p>创建 Express 项目</p>
+<pre><code>express [项目根目录]
+cd [项目根目录]
+npm install
+</code></pre>
+            <p>编辑app.js文件，添加如下代码</p>
+<pre><code><wxz-cshape content="app.listen() 参数1 → 端口；参数2 → 回调函数（端口开启成功后）"></wxz-cshape>
+app.listen([端口号], function(){
+    console.log("ok");
+});
+</code></pre>
+            <p>启动Express项目</p>
+<pre><code>node app <wxz-cshape content="or node app.js"></wxz-cshape>
+<wxz-cshape content="后台启动"></wxz-cshape>
+nohup node app.js  >/dev/null 2>&1 &
+<wxz-cshape content="检查启动进程号 或 清理进程"></wxz-cshape>
+ps -ef <wxz-cshape content="or ps -ef | grep [进程关键字]"></wxz-cshape>
+kill [进程号]
+</code></pre>
+
+        <wxz-subtitle content="- 安装 Vue cli 脚骨架"></wxz-subtitle>
+        <p>使用<b>npm</b>命令<i>全局</i>安装 vue cli</p>
+        <pre><code>npm install vue-cli -g</code></pre>
+        <p>测试vue-cli安装版本</p>
+        <pre><code>vue -V</code></pre>
+        <p>创建 vue-cli 项目</p>
+<pre><code>vue init webpack [项目根目录]
+vue-router → yes <wxz-cshape content="路由"></wxz-cshape>
+ESLint → no <wxz-cshape content="代码规则"></wxz-cshape>
+unit tests → no <wxz-cshape content="单元测试"></wxz-cshape>
+e2e tests → no <wxz-cshape content="行为测试"></wxz-cshape>
+</code></pre>
+        <p>配置 vue-cli 项目。包括模块安装及地址修改</p>
+<pre><code>npm install
+vim config/index.js <wxz-cshape content="将其中dev对象的host属性（原为localhost）修改为0.0.0.0，以兼容Linux系统"></wxz-cshape>
+</code></pre>
+        <div id="setHost" class="wxz-img"></div>
+        <p>启动 vue-cli 项目</p>
+<pre><code>npm run dev
+<wxz-cshape content="后台启动"></wxz-cshape>
+nohup npm run dev >/dev/null 2>&1 &
+</code></pre>
+
+            
+
+            <wxz-keyword content="12306 中铁"></wxz-keyword>
+        </div>
+        <img src="../img/bg-earth.jpg" width="100%">
+    </div>
+</body>
+<script>
+imgList = [
+    {
+        id: 'downloadNodeJs',
+        url: './2020-02-06-2/下载最新版NodeJs.jpg',
+        w: 997,
+        h: 665
+    },{
+        id: 'setHost',
+        url: './2020-02-06-2/修改host.jpg',
+        w: 873,
+        h: 367
+    }
+]
+</script>
+</html>
