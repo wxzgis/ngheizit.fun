@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>起点</title>
+    <script src="../js/blog.js"></script>
+    <link rel="stylesheet" href="../css/blog.css">
+
+    <!-- 网页图标 -->
+    <link rel="shortcut icon" href="../img/header.ico" type="image/x-icon">
+
+    <!-- Vue.js -->
+    <script src="../js/vue.js"></script>
+
+    <!-- Element -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+    <!-- jQuery -->
+    <script src="../js/jquery-3.4.1.js"></script>
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- 图片交互脚本（手动缩放、移动） -->
+    <script src="../js/ailabel.pkg.min.js"></script>
+    <script>
+        function initImg(id, url, width, height){
+            const gMap = new AILabel.Map(id, {zoom: 1366, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10, autoPan: true, drawZoom: true});
+            const gImageLayer = new AILabel.Layer.Image('img', url, {w: width, h: height}, {zIndex: 1});
+            gMap.addLayer(gImageLayer);
+        }
+    </script>
+
+</head>
+<body>
+    <div id="app">
+        <el-page-header @back="this.location='../index.html';" content="博客模板"></el-page-header>
+        <img src="../img/header-neutral.jpg" width="100%" style="margin-top: 50px;">
+        <el-backtop>
+            <div id="up">UP</div>
+        </el-backtop>
+        <div class="container">
+            <wxz-title content="起点" time="2020年2月6日 11点51分"></wxz-title>
+            
+            <wxz-subtitle content='Hello World!'></wxz-subtitle>
+            <p>希浙加油</p>
+<pre><code><wxz-cshape content="Colorful"></wxz-cshape>
+IRgbColor pColor = new RgbColorClass(){
+    Red = r, Greed = g, Blue = b
+};
+<wxz-html content="..."></wxz-html>
+<wxz-css content="..."></wxz-css>
+<wxz-python content="..."></wxz-python>
+</code></pre>
+
+            <div id="img" class="wxz-img"></div>
+
+
+            <wxz-keyword content="开始 起点 GISer Fighting"></wxz-keyword>
+        </div>
+        <img src="../img/bg-earth.jpg" width="100%">
+    </div>
+</body>
+<script>
+imgList = [
+    {
+        id: 'img',
+        url: './2020-02-06/糊涂塌客.png',
+        w: 500,
+        h: 500
+    }
+]
+</script>
+</html>

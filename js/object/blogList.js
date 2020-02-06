@@ -1,8 +1,8 @@
 const blogList = [
     {
-        title: "标题~",
-        img: './img/header.ico',
-        url: './blog/test.html',
-        time: '2020年2月3日 15点22分'
+        title: "起点",
+        img: './blog/2020-02-06/糊涂塌客.png',
+        url: './blog/2020-02-06.html',
+        time: '2020年2月6日 11点51分'
     }
 ]
