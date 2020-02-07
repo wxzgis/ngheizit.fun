@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Centos下的MySQL配置及表备份与还原</title>
+    <script src="../js/blog.js"></script>
+    <link rel="stylesheet" href="../css/blog.css">
+
+    <!-- 网页图标 -->
+    <link rel="shortcut icon" href="../img/header.ico" type="image/x-icon">
+
+    <!-- Vue.js -->
+    <script src="../js/vue.js"></script>
+
+    <!-- Element -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+    <!-- jQuery -->
+    <script src="../js/jquery-3.4.1.js"></script>
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- 图片交互脚本（手动缩放、移动） -->
+    <script src="../js/ailabel.pkg.min.js"></script>
+    <script>
+        function initImg(id, url, width, height){
+            const gMap = new AILabel.Map(id, {zoom: 1366, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10, autoPan: true, drawZoom: true});
+            const gImageLayer = new AILabel.Layer.Image('img', url, {w: width, h: height}, {zIndex: 1});
+            gMap.addLayer(gImageLayer);
+        }
+    </script>
+
+</head>
+<body>
+    <div id="app">
+        <el-page-header @back="this.location='../index.html';" content="Centos下的MySQL配置及表备份与还原"></el-page-header>
+        <img src="../img/header-neutral.jpg" width="100%" style="margin-top: 50px;">
+        <el-backtop>
+            <div id="up">UP</div>
+        </el-backtop>
+        <div class="container">
+            <wxz-title content="Centos下的MySQL配置及表备份与还原" time="2020年2月7日 15点13分"></wxz-title>
+            
+            <wxz-subtitle content="- 安装MySQL"></wxz-subtitle>
+            <p>更新YUM源以支持安装MySQL</p>
+            <pre><code>rpm -Uvh  http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm</code></pre>
+            <p>安装MySQL</p>
+            <pre><code>yum -y install mysql-community-server</code></pre>
+            <p>检测MySQL版本</p>
+            <pre><code>mysql -V</code></pre>
+            <wxz-subtitle content="- 配置MySQL"></wxz-subtitle>
+            <p>启动MySQL数据库服务并设置为开机自启动</p>
+<pre><code>systemctl start mysqld
+systemctl enable mysqld</code></pre>
+            <p>查询root初始密码</p>
+            <pre><code>grep 'temporary password' /var/log/mysqld.log</code></pre>
+            <p>对MySQL安全性配置</p>
+<pre><code>mysql_secure_installation
+<wxz-cshape content="1. 密码重置"></wxz-cshape>
+<wxz-cshape content="2. 删除匿名用户账户 → Y"></wxz-cshape>
+<wxz-cshape content="3. 静止root账户远程登录 → N"></wxz-cshape>
+<wxz-cshape content="4. 删除test库以及对test库的访问权限 → Y"></wxz-cshape>
+<wxz-cshape content="5. 重新加载授权表 → Y"></wxz-cshape>
+</code></pre>
+            <wxz-subtitle content="- 创建远程访问"></wxz-subtitle>
+            <p>登录MySQL并进行创建</p>
+<pre><code>mysql -uroot -p
+grant all on *.* to '[用户名]'@'%'IDENTIFIED BY '[密码]'; <wxz-cshape content="用户名 or root"></wxz-cshape>
+flush privileges;
+</code></pre>
+            <wxz-subtitle content="- MySQL的表备份与还原"></wxz-subtitle>
+            <p>备份MySQL数据库表</p>
+<pre><code>mysqldump -u root -p [数据库名] [表明] &gt; [备份文件路径]
+<wxz-cshape content="例 mysqldump -u root -p gis gisword &gt; gis_gisword_time.txt"></wxz-cshape>    
+</code></pre>
+            <p>还原MySQL数据库表</p>
+<pre><code>mysql -u root -p [目标数据库名] &lt; [备份文件路径]
+<wxz-cshape content="例 mysql -u root -p gis &lt; gis_gisword_time.txt"></wxz-cshape>
+</code></pre>
+            
+
+
+
+            <wxz-subtitle content='铁路部门再出免费退票措施'></wxz-subtitle>
+            <p>为落实国务院2020年春节假期延长安排，中国国家铁路集团有限公司决定，自2020年1月28日0时起，此前在车站、12306网站等各渠道，已购买的全国铁路火车票，旅客自愿改变行程需退票的，铁路部门均不收取退票手续费，购买铁路乘意险的一同办理。</p>
+            <p>为落实国务院2020年春节假期延长安排，中国国家铁路集团有限公司决定，自2020年1月28日0时起，此前在车站、12306网站等各渠道，已购买的全国铁路火车票，旅客自愿改变行程需退票的，铁路部门均不收取退票手续费，购买铁路乘意险的一同办理。</p>
+
+
+            <wxz-keyword content="MySQL 备份与还原"></wxz-keyword>
+        </div>
+        <img src="../img/bg-earth.jpg" width="100%">
+    </div>
+</body>
+<script>
+imgList = [
+    
+]
+</script>
+</html>

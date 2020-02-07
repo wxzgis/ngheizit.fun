@@ -14,5 +14,10 @@ const blogList = [
         img: './blog/2020-02-07-1/git.png',
         url: './blog/2020-02-07-1.html',
         time: '2020年2月7日 11点41分'
+    },{
+        title: 'Centos下的MySQL配置及表备份与还原',
+        img: './blog/2020-02-07-2/mysql.jpg',
+        url: './blog/2020-02-07-2.html',
+        time: '2020年2月7日 15点13分'
     }
 ].reverse();
