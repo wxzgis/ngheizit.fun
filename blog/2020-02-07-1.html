@@ -71,8 +71,8 @@ sudo make prefix=/usr/local/git install</code></pre>
             <p>进行<b>Git</b>命令的环境变量配置</p>
 <pre><code><wxz-cshape content="启动编辑环境变量配置文件"></wxz-cshape>
 sudo vim /etc/profile
-<wxz-cshape content="添加如下Git安装的根目录至环境变量配置文件中"></wxz-cshape>
-export PATH=/usr/local//git:$PATH
+<wxz-cshape content="添加如下Git安装的根目录下的bin文件夹至环境变量配置文件中"></wxz-cshape>
+export PATH=/usr/local/git/:$PATH
 </code></pre>
             <p>检测Git安装版本</p>
             <pre><code>git --version</code></pre>
