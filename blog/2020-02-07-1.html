@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/blog.js"></script>
+    <link rel="stylesheet" href="../css/blog.css">
+
+    <!-- 网页图标 -->
+    <link rel="shortcut icon" href="../img/header.ico" type="image/x-icon">
+
+    <!-- Vue.js -->
+    <script src="../js/vue.js"></script>
+
+    <!-- Element -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+    <!-- jQuery -->
+    <script src="../js/jquery-3.4.1.js"></script>
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- 图片交互脚本（手动缩放、移动） -->
+    <script src="../js/ailabel.pkg.min.js"></script>
+    <script>
+        function initImg(id, url, width, height){
+            const gMap = new AILabel.Map(id, {zoom: 1366, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10, autoPan: true, drawZoom: true});
+            const gImageLayer = new AILabel.Layer.Image('img', url, {w: width, h: height}, {zIndex: 1});
+            gMap.addLayer(gImageLayer);
+        }
+    </script>
+
+    <title>在Centos中配置Git</title>
+</head>
+<body>
+    <div id="app">
+        <el-page-header @back="this.location='../index.html';" content="在Centos中配置Git"></el-page-header>
+        <img src="../img/header-neutral.jpg" width="100%" style="margin-top: 50px;">
+        <el-backtop>
+            <div id="up">UP</div>
+        </el-backtop>
+        <div class="container">
+            <wxz-title content="在Centos中配置Git" time="2020年2月7日 11点41分"></wxz-title>
+            
+            <wxz-subtitle content="- 安装Git"></wxz-subtitle>
+
+            <p>安装Git配置所需的包</p>
+<pre><code>yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel
+yum install gcc-c++ perl-ExtUtils-MakeMaker
+</code></pre>
+            <p>检查是否存在旧版本Git并进行移除</p>
+            <pre><code>yum remove git</code></pre>
+
+
+
+            <p>
+                在<a href="https://mirrors.edge.kernel.org/pub/software/scm/git/">Git版本库</a>中查找最新版本，
+                然后执行如下命令进行Git安装包下载并进行解压操作
+            </p>
+<pre><code><wxz-cshape content="2.25.0 为对应当前最新版本号"></wxz-cshape>
+wget https://www.kernel.org/pub/software/scm/git/git-2.25.0.tar.gz
+tar xf git-2.25.0.tar.gz
+</code></pre>
+            <p>进入解压后的git文件进行安装操作</p>
+<pre><code><wxz-cshape content="其中/usr/local/git 为安装根目录"></wxz-cshape>
+sudo make prefix=/usr/local/git all
+sudo make prefix=/usr/local/git install</code></pre>
+            <p>进行<b>Git</b>命令的环境变量配置</p>
+<pre><code><wxz-cshape content="启动编辑环境变量配置文件"></wxz-cshape>
+sudo vim /etc/profile
+<wxz-cshape content="添加如下Git安装的根目录至环境变量配置文件中"></wxz-cshape>
+export PATH=/usr/local//git:$PATH
+</code></pre>
+            <p>检测Git安装版本</p>
+            <pre><code>git --version</code></pre>
+
+
+            <wxz-subtitle content="- SSH Key 配置"></wxz-subtitle>
+            <p>用户信息配置和查询</p>
+<pre><code>git config --global user.name "[用户名]"
+git config --global user.email [邮箱]
+git config --global --list
+</code></pre>
+            <p>执行如下命令生成密钥</p>
+            <pre><code>ssh-keygen -t rsa -C "[邮箱]"</code></pre>
+            <p>执行如下命令查看密钥内容 并将其添加至GitHub账户SSH管理中</p>
+            <pre><code>cat ~/.ssh/id_rsa.pub</code></pre>
+            
+
+
+            <wxz-keyword content="Git SSH"></wxz-keyword>
+        </div>
+        <img src="../img/bg-earth.jpg" width="100%">
+    </div>
+</body>
+<script>
+imgList = [
+    
+]
+</script>
+</html>
