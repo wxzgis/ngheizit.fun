@@ -19,5 +19,10 @@ const blogList = [
         img: './blog/2020-02-07-2/mysql.jpg',
         url: './blog/2020-02-07-2.html',
         time: '2020年2月7日 15点13分'
+    },{
+        title: 'Google Earth Engine 初试探',
+        img: './blog/2020-02-08-1/Landsat8假彩色系列.png',
+        url: './blog/2020-02-08-1.html',
+        time: '2020年2月8日 17点03分'
     }
 ].reverse();
