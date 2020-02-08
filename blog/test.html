@@ -27,6 +27,7 @@
     <script src="../js/ailabel.pkg.min.js"></script>
     <script>
         function initImg(id, url, width, height){
+            document.getElementById(id).style.height = height + 'px';
             const gMap = new AILabel.Map(id, {zoom: 1366, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10, autoPan: true, drawZoom: true});
             const gImageLayer = new AILabel.Layer.Image('img', url, {w: width, h: height}, {zIndex: 1});
             gMap.addLayer(gImageLayer);
