@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/blog.js"></script>
+    <link rel="stylesheet" href="../css/blog.css">
+
+    <!-- 网页图标 -->
+    <link rel="shortcut icon" href="../img/header.ico" type="image/x-icon">
+
+    <!-- Vue.js -->
+    <script src="../js/vue.js"></script>
+
+    <!-- Element -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+    <!-- jQuery -->
+    <script src="../js/jquery-3.4.1.js"></script>
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- 图片交互脚本（手动缩放、移动） -->
+    <script src="../js/ailabel.pkg.min.js"></script>
+    <script>
+        function initImg(id, url, width, height){
+            document.getElementById(id).style.height = height + 'px';
+            const gMap = new AILabel.Map(id, {zoom: 1366, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10, autoPan: true, drawZoom: true});
+            const gImageLayer = new AILabel.Layer.Image('img', url, {w: width, h: height}, {zIndex: 1});
+            gMap.addLayer(gImageLayer);
+        }
+    </script>
+
+
+    <title>Google Earth Engine 初试探</title>
+</head>
+<body>
+    <div id="app">
+        <el-page-header @back="this.location='../index.html';" content="Google Earth Engine 初试探"></el-page-header>
+        <img src="../img/header-neutral.jpg" width="100%" style="margin-top: 50px;">
+        <el-backtop>
+            <div id="up">UP</div>
+        </el-backtop>
+        <div class="container">
+            <wxz-title content="Google Earth Engine 初试探" time=""></wxz-title>
+            
+            <wxz-subtitle content="- GEE（Google Earth Engine）基本概念"></wxz-subtitle>
+            <div id="dataStructures" class="wxz-img"></div>
+            <p>在地球引擎其它基本数据结构包括Dictionary， List，Array，Date， Number和String。</p>
+
+            <wxz-subtitle content="信息打印"></wxz-subtitle>
+            <p>在GEE(地球引擎编辑器 - JavaScript)中可以使用<b>print()</b>函数代替<b>console.log()</b>函数对传入参数进行打印。</p>
+<pre><code>print('Good Luck!'); <wxz-cshape content="or console.log('Good Luck!');"></wxz-cshape>
+var image = ee.Image('LANDSAT/LC08/C01/T1/LC08_044034_20140318'); <wxz-cshape content="根据Id值获取影像"></wxz-cshape>
+print(image); <wxz-cshape content="打印影像信息"></wxz-cshape>
+</code></pre>
+            <div id="imageAttribute" class="wxz-img"></div>
+            
+            <wxz-subtitle content="数据查询与添加"></wxz-subtitle>
+            <p>
+                单幅影像数据可通过<b>ee.Image()</b>函数获取，
+                然后利用<b>Map.addLauer()</b>函数把获取的影像添加至地图中，
+                可利用<b>Map.centerObject()</b>函数来将地图定位到影像中心位置
+            </p>
+<pre><code><wxz-cshape content="获取影像对象同时将其添加到地图上的函数"></wxz-cshape>
+var GetImage = function(obj){ 
+    var id = obj.id; <wxz-cshape content="影像Id值"></wxz-cshape>
+    var name = obj.name; <wxz-cshape content="影像的图层名"></wxz-cshape>
+    if(id){
+        var image = ee.Image(id); <wxz-cshape content="获取影像对象"></wxz-cshape>
+        <wxz-cshape content="添加影像至地图并将地图视窗定位到影像中心位置"></wxz-cshape>
+        Map.centerObject(image, 9); <wxz-cshape content="第2个参数为地图视窗的缩放等级"></wxz-cshape>
+        Map.addLayer(image, {}, name);
+        return image; <wxz-cshape content="返回获取的影像对象"></wxz-cshape>
+    }
+};
+</code></pre>
+            <div id="getImg" class="wxz-img"></div>
+            <p>
+                对获取到的影像未加修饰的添加的地图上可能在显示效果上不大好，
+                因此通常需要进行一些可视化操作，
+                比如，波段的排列组合显示
+            </p>
+<pre><code><wxz-cshape content="改进GetImage()函数"></wxz-cshape>
+    var GetImage = function(obj){
+    var id = obj.id;
+    var name = obj.name;
+    var vizParams = {
+        bands: obj.bands, <wxz-cshape content="波段组合"></wxz-cshape>
+        min: obj.min || 5000,
+        max: obj.max || 15000,
+        gamma: obj.gamma1 || 1.3 <wxz-cshape content="伽马值"></wxz-cshape>
+    };
+    if(id){
+        var image = ee.Image(id);
+        Map.centerObject(image, 9);
+        Map.addLayer(image, vizParams, name);
+        return image;
+    }
+}; 
+</code></pre>
+        <div id="l5fColor" class="wxz-img"></div>
+        <p>
+            在这里要注意波段标识的指向，
+            例如，Landsat4/5和Landsat8中真/假彩色对应表示的波段
+        </p>
+        <el-collapse accordion>
+            <el-collapse-item title="TM传感器" name="1">
+                <el-table
+                    :data="[
+                        {
+                            band: 1,
+                            extent: '0.45~0.52',
+                            cell: '30m'
+                        },{
+                            band: 2,
+                            extent: '0.52~0.60',
+                            cell: '30m'
+                        },{
+                            band: 3,
+                            extent: '0.63~0.69',
+                            cell: '30m'
+                        },{
+                            band: 4,
+                            extent: '0.76~0.90',
+                            cell: '30m'
+                        },{
+                            band: 5,
+                            extent: '1.55~1.75',
+                            cell: '30m'
+                        },{
+                            band: 6,
+                            extent: '10.40~12.50',
+                            cell: '120m'
+                        },{
+                            band: 7,
+                            extent: '2.08~2.35',
+                            cell: '30m'
+                        }
+                    ]"
+                    height="250"
+                    border
+                    style="width: 50%">
+                    <el-table-column
+                        prop="band"
+                        label="波段">
+                    </el-table-column>
+                    <el-table-column
+                        prop="extent"
+                        label="范围">
+                    </el-table-column>
+                    <el-table-column
+                        prop="cell"
+                        label="分辨率">
+                    </el-table-column>
+                </el-table>
+            </el-collapse-item>
+            <el-collapse-item title="OLI传感器" name="2">
+                <el-table
+                    :data="[
+                        {
+                            band: 1,
+                            extent: '0.433~0.453',
+                            type: '蓝绿波段',
+                            cell: '30m'
+                        },{
+                            band: 2,
+                            extent: '0.450~0.515',
+                            type: '蓝绿波段',
+                            cell: '30m'
+                        },{
+                            band: 3,
+                            extent: '0.525~0.600',
+                            type: '绿波段',
+                            cell: '30m'
+                        },{
+                            band: 4,
+                            extent: '0.630~0.680',
+                            type: '红波段',
+                            cell: '30m'
+                        },{
+                            band: 5,
+                            extent: '0.845~0.885',
+                            type: '近红外',
+                            cell: '30m'
+                        },{
+                            band: 6,
+                            extent: '1.560~1.660',
+                            type: '中红外',
+                            cell: '120m'
+                        },{
+                            band: 7,
+                            extent: '2.100~2.300',
+                            type: '中红外',
+                            cell: '30m'
+                        },{
+                            band: 8,
+                            extent: '0.500~0.680',
+                            type: '微米全色',
+                            cell: '15m'
+                        },{
+                            band: 9,
+                            extent: '1.360~1.390',
+                            type: '短波红外波段',
+                            cell: '30m'
+                        }
+                    ]"
+                    height="250"
+                    border
+                    style="width: 50%">
+                    <el-table-column
+                        prop="band"
+                        label="波段">
+                    </el-table-column>
+                    <el-table-column
+                        prop="type"
+                        label="类型">
+                    </el-table-column>
+                    <el-table-column
+                        prop="extent"
+                        label="范围">
+                    </el-table-column>
+                    <el-table-column
+                        prop="cell"
+                        label="分辨率">
+                    </el-table-column>
+                </el-table>
+            </el-collapse-item>
+          </el-collapse>
+
+        <p>
+            利用<b>ee.ImageCollection()</b>函数能够获取影像集，
+            使用该函数时可以结合使用过滤器筛选影像
+        </p>
+<pre><code><wxz-css content="定义获取影像集函数"></wxz-css>
+var GetImageList = function(obj){
+    var id = obj.id; <wxz-cshape content="影像集Id值"></wxz-cshape>
+    var geometry = obj.geometry; <wxz-cshape content="过滤条件：范围"></wxz-cshape>
+    var startTime = obj.startTime; <wxz-cshape content="过滤条件：开始时间"></wxz-cshape>
+    var endTime = obj.endTime; <wxz-cshape content="过滤条件： 结束时间"></wxz-cshape>
+    var sortField = obj.sortField; <wxz-cshape content="影像排序字段"></wxz-cshape>
+    var isAes = obj.isAes; <wxz-cshape content="影像排序方式：是否为升序"></wxz-cshape>
+    if(id){
+        var imageCollection = ee.ImageCollection(id)
+            .fiterBounds(geometry)
+            .fiterDate(startTime, endTime)
+            .sort(sortField, isAes);
+        print(imageCollection);
+        return imageCollection;
+    }  
+};
+</code></pre>
+            <div id="getImageList" class="wxz-img"></div>
+
+            <el-table
+                :data="[
+                    {
+                        name: 'Landsat4 TM Tier 1 Row Scenes',
+                        start: '1982-08-22',
+                        end: '1993-12-14',
+                        id: 'LANDSAT/LT4/C01/T1'
+                    },{
+                        name: 'Landsat4 TM Tier 1 TOA Reflectance',
+                        start: '1982-08-22',
+                        end: '1993-12-14',
+                        id: 'LANDSAT/LT4/C01/T1_TOA'
+                    },{
+                        name: 'Landsat4 TM Tier 2 Row Scenes',
+                        start: '1982-08-22',
+                        end: '1993-12-14',
+                        id: 'LANDSAT/LT4/C01/T2'
+                    },{
+                        name: 'Landsat4 TM Tier 2 TOA Reflectance',
+                        start: '1982-08-22',
+                        end: '1993-12-14',
+                        id: 'LANDSAT/LT4/C01/T2_TOA'
+                    },{
+                        name: 'Landsat5 TM Tier 1 Row Scenes',
+                        start: '1984-01-01',
+                        end: '2012-05-05',
+                        id: 'LANDSAT/LT5/C01/T1'
+                    },{
+                        name: 'Landsat5 TM Tier 1 TOA Reflectance',
+                        start: '1984-01-01',
+                        end: '2012-05-05',
+                        id: 'LANDSAT/LT5/C01/T1_TOA'
+                    },{
+                        name: 'Landsat5 TM Tier 2 Row Scenes',
+                        start: '1984-01-01',
+                        end: '2012-05-05',
+                        id: 'LANDSAT/LT5/C01/T2'
+                    },{
+                        name: 'Landsat5 TM Tier 2 TOA Reflectance',
+                        start: '1984-01-01',
+                        end: '2012-05-05',
+                        id: 'LANDSAT/LT5/C01/T2_TOA'
+                    }
+                ]"
+                style="width: 90%" border>
+                <el-table-column
+                    prop="name"
+                    label="卫星系列">
+                </el-table-column>
+                <el-table-column
+                    prop="start"
+                    label="开始时间">
+                </el-table-column>
+                <el-table-column
+                    prop="end"
+                    label="结束时间">
+                </el-table-column>
+                <el-table-column
+                    prop="id"
+                    label="ImageCollection ID">
+            </el-table-column>
+          </el-table>
+    
+            
+
+            
+
+
+            <wxz-keyword content="GoogleEarthEngine 遥感云处理 JavaScript"></wxz-keyword>
+        </div>
+        <img src="../img/bg-earth.jpg" width="100%">
+    </div>
+</body>
+<script>
+imgList = [
+    {
+        id: 'dataStructures',
+        url: './2020-02-08-1/地球引擎数据结构图示.png',
+        w: 1245,
+        h: 300
+    },{
+        id: 'imageAttribute',
+        url: './2020-02-08-1/Landsat8影像属性.png',
+        w: 572,
+        h: 662
+    },{
+        id: 'getImg',
+        url: './2020-02-08-1/影像获取和添加.png',
+        w: 1366,
+        h: 768
+    },{
+        id: 'l5fColor',
+        url: './2020-02-08-1/Landsat8假彩色系列.png',
+        w: 1366,
+        h: 768
+    },{
+        id: 'getImageList',
+        url: './2020-02-08-1/获取影像集.png',
+        w: 1366,
+        h: 452
+    }
+]
+</script>
+</html>
