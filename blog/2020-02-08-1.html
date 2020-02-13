@@ -243,8 +243,8 @@ var GetImageList = function(obj){
     var isAes = obj.isAes; <wxz-cshape content="影像排序方式：是否为升序"></wxz-cshape>
     if(id){
         var imageCollection = ee.ImageCollection(id)
-            .fiterBounds(geometry)
-            .fiterDate(startTime, endTime)
+            .filterBounds(geometry)
+            .filterDate(startTime, endTime)
             .sort(sortField, isAes);
         print(imageCollection);
         return imageCollection;
