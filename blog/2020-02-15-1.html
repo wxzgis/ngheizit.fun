@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/blog.js"></script>
+    <link rel="stylesheet" href="../css/blog.css">
+
+    <!-- 网页图标 -->
+    <link rel="shortcut icon" href="../img/header.ico" type="image/x-icon">
+
+    <!-- Vue.js -->
+    <script src="../js/vue.js"></script>
+
+    <!-- Element -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+    <!-- jQuery -->
+    <script src="../js/jquery-3.4.1.js"></script>
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- 图片交互脚本（手动缩放、移动） -->
+    <script src="../js/ailabel.pkg.min.js"></script>
+    <script>
+        function initImg(id, url, width, height){
+            document.getElementById(id).style.height = height + 'px';
+            const gMap = new AILabel.Map(id, {zoom: 1366, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10, autoPan: true, drawZoom: true});
+            const gImageLayer = new AILabel.Layer.Image('img', url, {w: width, h: height}, {zIndex: 1});
+            gMap.addLayer(gImageLayer);
+        }
+    </script>
+
+
+    <title>MongoDB基础语法与在Centos系统中的配置和NodeJS连接</title>
+</head>
+<body>
+    <div id="app">
+        <el-page-header @back="this.location='../index.html';" content="MongoDB基础语法与在Centos系统中的配置和NodeJS连接"></el-page-header>
+        <img src="../img/header-neutral.jpg" width="100%" style="margin-top: 50px;">
+        <el-backtop>
+            <div id="up">UP</div>
+        </el-backtop>
+        <div class="container">
+            <wxz-title content="MongoDB基础语法与在Centos系统中的配置和NodeJS连接" time="2020年2月15日 20点27分"></wxz-title>
+            
+            <wxz-subtitle content="- 基本概念"></wxz-subtitle>
+            <p>NoSQL模式，MongoDB中，<b>集合</b>即<i>表</i>，<b>文档</b>即<i>元组</i>。</p>
+
+            <wxz-subtitle content="- 基础语法"></wxz-subtitle>
+            <p>创建数据库（选择数据库）。</p>
+            <pre><code>use [数据库名] <wxz-cshape content="当数据库不存在时会创建"></wxz-cshape></code></pre>
+            <p>查看所有数据库</p>
+            <pre><code>show dbs</code></pre>
+            <p>查看所有表</p>
+<pre><code>show tables
+<wxz-cshape content="or"></wxz-cshape>
+show collections
+</code></pre>
+            <p>查看当前数据库</p>
+            <pre><code>db</code></pre>
+            <p>删除数据库</p>
+            <pre><code>db.dropDatabase()</code></pre>
+            <p>删除表</p>
+            <pre><code>db.[表名].drop()</code></pre>
+            <p>创建表</p>
+            <pre><code>db.createCollection([表名])</code></pre>
+            <p>插入文档</p>
+            <pre><code>db.[表名].insert([文档])</code></pre>
+            <p>查看表的所有文档</p>
+<pre><code>db.[表名].find()
+<wxz-cshape content="or"></wxz-cshape>
+db.[表名].find().pretty()
+</code></pre>
+            <p>更新文档</p>
+<pre><code>db.[表名].update([被更新文档], {$set: [更新文档]}) <wxz-cshape content="仅更新一条"></wxz-cshape>
+db.[表名].update([被更新文档], {$set: [更新文档]}, true) <wxz-cshape content="若无则插入"></wxz-cshape>
+db.[表名].update([被更新文档], {$set: [更新文档]}, false, true) <wxz-cshape content="更新全部"></wxz-cshape> 
+</code></pre>
+            <p>删除文档</p>
+<pre><code>db.[表名].remove() <wxz-cshape content="删除所有文档"></wxz-cshape>
+db.[表名].remove([文档], true) <wxz-cshape content="删除符合条件的第一个文档"></wxz-cshape>
+db.[表名].remove([文档]) <wxz-cshape content="删除符合条件的所有文档"></wxz-cshape>
+</code></pre>
+            <p>查询文档</p>
+<pre><code>db.[表名].find([查询文档]) <wxz-cshape content="等价查询"></wxz-cshape>
+<wxz-cshape content="不等价查询"></wxz-cshape>
+db.[表名].find({
+    [属性名]: {$lt: [值]}
+})
+<wxz-cshape content="lt → 小于"></wxz-cshape>
+<wxz-cshape content="lte → 小于等于"></wxz-cshape>
+<wxz-cshape content="gt → 大于"></wxz-cshape>
+<wxz-cshape content="gte → 大于等于"></wxz-cshape>
+<wxz-cshape content="ne → 不等于"></wxz-cshape>
+</code></pre>
+            <p>OR 条件</p>
+            <pre><code>$or: [... 文档]</code></pre>
+            
+            <wxz-subtitle content="- Centos配置MongoDB"></wxz-subtitle>
+            <p>
+                在地址<a href="http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/">http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/</a>中查询MongoDB的最新版本,
+                然后利用如下命令创建MongoDB的存储库文件
+            </p>
+            <pre><code>vi /etc/yum.repos.d/mongodb-org-4.2.repo</code></pre>
+            <p>并将如下指令添加编剧到上述文件中</p>
+<pre><code>[mogodb-org]
+
+name=MongoDB Repository
+
+baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/4.2/x86_64/
+
+gpgcheck=0
+
+enabled=1
+</code></pre>
+        <p>之后执行如下命令进行MongoDB的安装</p>
+        <pre><code>yum install -y mongodb-org</code></pre>
+        <p>利用如下指令进行MongoDB服务的启动或重启</p>
+<pre><code>service mongod start <wxz-cshape content="启动"></wxz-cshape>
+service mongod restart <wxz-cshape content="重启"></wxz-cshape>
+</code></pre>
+        <p>
+            执行命令<b>vi /etc/mongod.conf</b>编辑MongoDB配置文件，
+            对其中的<b>bindIp</b>属性赋值为<i>0.0.0.0</i>，
+            然后保存并重启MongoDB服务，
+            以此开启远程访问（还需进行安全组配置）。
+        </p>
+        <p>
+            利用命令<b>mongo</b>进入mongo命令行，
+            <b>use admin</b>命令选择admin数据库，
+            然后执行以下代码添加mongo服务访问用户
+        </p>
+<pre><code> <wxz-cshape content="前提先 use 选择好数据库"></wxz-cshape>
+db.createUser(
+    {
+        user: '[用户名]',
+        pwd: '[密码]',
+        roles: [
+            {
+                role: "readWrite",
+                db: "[默认数据库]"
+            }
+        ]
+    }
+)
+db.auth("[用户名]","[密码]")
+</code></pre>
+            <wxz-subtitle content="- NodeJS 连接MongoDB数据库"></wxz-subtitle>
+            <a href="https://www.bilibili.com/video/av13941591?p=6">视频</a>
+
+
+            <wxz-keyword content="MongoDB NodeJS NoSQL"></wxz-keyword>
+        </div>
+        <img src="../img/bg-earth.jpg" width="100%">
+    </div>
+</body>
+<script>
+imgList = [
+    {
+        id: 'test',
+        url: './test/test.png',
+        w: 1366,
+        h: 768
+    },{
+        id: 'test2',
+        url: './test/test2.png',
+        w: 500,
+        h: 500
+    }
+]
+</script>
+</html>

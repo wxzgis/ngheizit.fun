@@ -24,5 +24,10 @@ const blogList = [
         img: './blog/2020-02-08-1/Landsat8假彩色系列.png',
         url: './blog/2020-02-08-1.html',
         time: '2020年2月8日 17点03分'
+    },{
+        title: 'MongoDB基础语法与在Centos系统中的配置和NodeJS连接',
+        img: './blog/2020-02-15-1/mongodb-logo.png',
+        url: './blog/2020-02-15-1.html',
+        time: '2020年2月15日 20点27分'
     }
 ].reverse();
