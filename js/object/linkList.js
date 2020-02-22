@@ -38,6 +38,12 @@ const linkList = [
             },{
                 name: 'Mint UI 基于 Vue.js 的移动端组件库 官网',
                 url: 'https://mint-ui.github.io/#!/zh-cn'
+            },{
+                name: 'ECharts 前端统计框架',
+                url: 'https://www.echartsjs.com/zh/tutorial.html#5%20%E5%88%86%E9%92%9F%E4%B8%8A%E6%89%8B%20ECharts'
+            },{
+                name: 'Leafletjs 前端地图框架',
+                url: 'https://leafletjs.com/examples.html'
             }
 
         ]
